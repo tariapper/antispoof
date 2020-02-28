@@ -1,0 +1,2 @@
+rootProject.name='antispoof'
+include ':app'
