@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
     final Handler handler_interact = new Handler();
     View bkg;// = findViewById(R.id.screen);
     View half;// = findViewById(R.id.half);
-
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setBrightness(bkg, 255);
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                clrs();
                 // Code here executes on main thread after user presses button
 
             }
@@ -61,29 +63,86 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        //creating timer
+    public void clrs(){
         Timer timer_interact = new Timer();
         timer_interact.schedule(new TimerTask() {
             @Override
-            public void run() {UpdateGUI();}
+            public void run() {
+                handler_interact.post(g_r);;
+            }
+        }, 1000);
+        timer_interact.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler_interact.post(g_b);;
+            }
+        }, 2000);
+        timer_interact.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler_interact.post(r_b);;
+            }
         }, 3000);
+        timer_interact.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler_interact.post(re);;
+            }
+        }, 4000);
+        timer_interact.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler_interact.post(bl);;
+            }
+        }, 5000);
+        timer_interact.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler_interact.post(gr);;
+            }
+        }, 6000);
     }
 
-    private void UpdateGUI() {
-        handler_interact.post(runnable_interact);
-    }
 
     //creating runnable
-    final Runnable runnable_interact = new Runnable() {
+    final Runnable g_r = new Runnable() {
         public void run() {
             bkg.setBackgroundColor(Color.GREEN);
             half.setBackgroundColor(Color.RED);
         }
     };
+    final Runnable g_b = new Runnable() {
+        public void run() {
+            bkg.setBackgroundColor(Color.GREEN);
+            half.setBackgroundColor(Color.BLUE);
+        }
+    };
+    final Runnable r_b = new Runnable() {
+        public void run() {
+            bkg.setBackgroundColor(Color.RED);
+            half.setBackgroundColor(Color.BLUE);
+        }
+    };
+    final Runnable re = new Runnable() {
+        public void run() {
+            bkg.setBackgroundColor(Color.RED);
+            half.setBackgroundColor(Color.RED);
+        }
+    };
+    final Runnable bl = new Runnable() {
+        public void run() {
+            bkg.setBackgroundColor(Color.BLUE);
+            half.setBackgroundColor(Color.BLUE);
+        }
+    };
+    final Runnable gr = new Runnable() {
+        public void run() {
+            bkg.setBackgroundColor(Color.GREEN);
+            half.setBackgroundColor(Color.GREEN);
+        }
+    };
+
+
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
